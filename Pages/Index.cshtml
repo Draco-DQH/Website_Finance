@@ -1,0 +1,105 @@
+﻿@page
+@model IndexModel
+@{
+    ViewData["Title"] = "Home page";
+}
+
+
+<style>
+    #background {
+        background-color: #d5f7e6;
+        margin: 0px;
+        padding: 4vw 10vw 4vw 10vw;
+    }
+    .row{
+        margin-top:4vw;
+        margin-bottom:4vw;
+    }
+
+</style>
+
+
+<div id="background" class="container-fluid">
+    <div id="carouselExampleDark" class="carousel carousel-dark slide" data-bs-ride="carousel">
+        <div class="carousel-indicators">
+            <button id="btn-custom" type="button" data-bs-target="#demo" data-bs-slide-to="0" class="active"></button>
+            <button id="btn-custom" type="button" data-bs-target="#demo" data-bs-slide-to="1"></button>
+            <button id="btn-custom" type="button" data-bs-target="#demo" data-bs-slide-to="2"></button>
+            <button id="btn-custom" type="button" data-bs-target="#demo" data-bs-slide-to="3"></button>
+        </div>
+        <div class="carousel-inner" style="border-radius: 10vw">
+            <div class="carousel-item active">
+                <img src="/img/img1.png" class="d-block" style="width:100%">
+            </div>
+            <div class="carousel-item">
+                <img src="/img/img2.png" class="d-block" style="width:100%">
+            </div>
+            <div class="carousel-item">
+                <img src="/img/img3.png" class="d-block" style="width:100%">
+            </div>
+            <div class="carousel-item">
+                <img src="/img/img4.png" class="d-block" style="width:100%">
+            </div>
+        </div>
+        <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleDark" data-bs-slide="prev">
+            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Previous</span>
+        </button>
+        <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleDark" data-bs-slide="next">
+            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Next</span>
+        </button>
+       
+    </div>
+    <div class="row">
+        <div class="col-sm-4">
+            <div class="card">
+                <img src="/img/img1.png" class="card-img-top" alt="...">
+
+                <div class="card-body">
+                    <h5 class="card-title">Card title</h5>
+                    <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                    <a href="#" class="btn btn-primary">Go somewhere</a>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-4">
+            <div class="card" aria-hidden="true">
+                <img src="/img/img4.png" class="card-img-top" alt="...">
+                <div class="card-body">
+                    <h5 class="card-title placeholder-glow">
+                        <span class="placeholder col-6"></span>
+                    </h5>
+                    <p class="card-text placeholder-glow">
+                        <span class="placeholder col-7"></span>
+                        <span class="placeholder col-4"></span>
+                        <span class="placeholder col-4"></span>
+                        <span class="placeholder col-6"></span>
+                        <span class="placeholder col-8"></span>
+                    </p>
+                    <a class="btn btn-primary disabled placeholder col-6" aria-disabled="true"></a>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-4">
+            <div class="card" aria-hidden="true">
+                <img src="/img/img2.png" class="card-img-top" alt="...">
+                <div class="card-body">
+                    <h5 class="card-title placeholder-glow">
+                        <span class="placeholder col-6"></span>
+                    </h5>
+                    <p class="card-text placeholder-glow">
+                        <span class="placeholder col-7"></span>
+                        <span class="placeholder col-4"></span>
+                        <span class="placeholder col-4"></span>
+                        <span class="placeholder col-6"></span>
+                        <span class="placeholder col-8"></span>
+                    </p>
+                    <a class="btn btn-primary disabled placeholder col-6" aria-disabled="true"></a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+

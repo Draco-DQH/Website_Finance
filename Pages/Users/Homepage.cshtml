@@ -1,0 +1,167 @@
+﻿@page
+@model BCCM1.Pages.Users.HomepageModel
+@{
+    ViewData["Title"] = "Home page";
+}
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.js"></script>
+
+@section Scripts {
+    <script>
+        // Đợi cho tất cả các phần tử trong DOM được tải hoàn toàn
+        document.addEventListener('DOMContentLoaded', function () {
+            // Lấy navbar bằng cách sử dụng querySelector
+            var navbar = document.querySelector('.navbar');
+            // Ẩn thanh navbar bằng cách thêm lớp CSS 'd-none' (ẩn)
+            navbar.classList.add('d-none');
+        });
+    </script>
+}
+
+
+<style>
+    .underlist {
+      list-style-type: none;
+      margin:1vw 0vw 0vw 2vw;
+      padding: 0;
+      width: 10%;
+      position: fixed;
+      height: 100%;
+      overflow: auto
+    }
+
+    li a {
+      display: block;
+      color: #000;
+      padding: 8px 16px;
+      text-decoration: none;
+    }
+
+    li a.active {
+      background-color: #04AA6D;
+      color: white;
+    }
+
+    li a:hover:not(.active) {
+      background-color: #555;
+      color: white;
+    }
+</style>
+
+<nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light ">
+    <div class="container-fluid" style="margin:0vw 5vw 0vw 5vw">
+        <a class="navbar-brand" asp-area="" asp-page="/Users/Homepage?id=@Model.userInfo.id" style="width:10%; height:10%">
+            <div>
+                <img src="/img/logo2.png" style="float:left; max-width:40%; max-height:40%" />
+            </div>
+        </a>
+        <form method="post"> 
+        <input type="hidden" name="id" value="@Model.userInfo.id" />
+        </form>
+
+        <div style="margin-left: auto;margin-right: 1vw;">
+            @Model.userInfo.email
+        </div>
+
+        <a href="/Index"><button class=" btn btn-outline-success" style="border-radius:5vw; float:right">Log out</button></a>
+    </div>
+</nav>
+
+<center>
+    <ul class="underlist">
+        <li><a class="active" style="border-radius:2vw" href="/Users/Homepage?id=@Model.userInfo.id">Home</a></li>
+        <li><a style="border-radius:2vw;margin-top:1vw" href="/Users/Transactions?id=@Model.userInfo.id">Transactions</a></li>
+        <li><a style="border-radius:2vw;margin-top:1vw" href="/Users/Infor?id=@Model.userInfo.id">Information</a></li>
+                
+    </ul>
+</center>
+                
+<div style="background-color:#d5f7e6; margin-left:14%;padding:1px 16px;height:1000px;">
+    <div class="row" style="margin:1vw">
+        <div class="col-sm-4">
+            <div class="card">
+                <div class="card-body">
+                    <h2 class="card-title" style="color:#198754">Total Income</h2>
+@*                     @if (Model.transCate is null)
+                    {
+                        <center><h1 class="card-text">---</h1></center>
+                    }
+                    else
+                    { *@
+                        <center><h1 class="card-text">@(Model.inCome == 0 ? "---" : Model.inCome)</h1></center>
+                    @* } *@
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-4">
+            <div class="card">
+                <div class="card-body">
+                    <h2 class="card-title" style="color:#008080">Balance</h2>
+                    
+                    @* if (Model.transCate is null)
+                    {
+                        <center><h1 class="card-text">---</h1></center>
+                    }else
+                    {
+                    } *@
+                        <center><h1 class="card-text">@(Model.inCome-Model.outCome)</h1></center>
+                        
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-4">
+            <div class="card">
+                <div class="card-body">
+                    <h2 class="card-title" style="color:#800000">Total Expense</h2>
+                    <center><h1 class="card-text">@(Model.outCome == 0 ? "---" : Model.outCome)</h1></center>
+                    @*       @if (Model.transCate.totalExpense is null)
+                    {
+                    <center><h1 class="card-text">---</h1></center>
+                    }
+                    else
+                    {
+                    <center><h1 class="card-text">@Model.transCate.totalExpense</h1></center>
+                    } *@
+                </div>
+            </div>
+        </div>
+    </div>
+    <body onload="createChart()">
+        <!-- Gọi hàm createChart() khi trang được tải -->
+
+        <canvas id="myChart" style="height:100%;max-height:720px;width:100%;max-width:3000px"></canvas>
+
+        <script>
+            const xValues = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
+            const yValues1 = @Html.Raw(Json.Serialize(Model.monthlyIncomes));
+            const yValues2 = @Html.Raw(Json.Serialize(Model.monthlyExpenses));
+            const barColors = ["green", "#800000"]; // Màu cho từng cột
+
+            // Hàm tạo biểu đồ
+            function createChart() {
+                new Chart("myChart", {
+                    type: "bar",
+                    data: {
+                        labels: xValues,
+                        datasets: [{
+                            label: 'Income', // Nhãn cho biểu đồ
+                            backgroundColor: barColors[0], // Màu cho cột 1
+                            data: yValues1 // Dữ liệu cho cột 1
+                        },
+                        {
+                            label: 'Expense', // Nhãn cho biểu đồ
+                            backgroundColor: barColors[1], // Màu cho cột 2
+                            data: yValues2 // Dữ liệu cho cột 2
+                        }]
+                    },
+                    options: {
+                        title: {
+                            display: true,
+                        }
+                    }
+                });
+            }
+        </script>
+    </body>
+
+</div>

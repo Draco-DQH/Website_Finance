@@ -1,0 +1,100 @@
+﻿@page
+@model BCCM1.Pages.Users.SignupModel
+@{
+    ViewData["Title"] = "Signup";
+}
+<style>
+    input[type=text], select {
+        width: 100%;
+        margin: 0.5vw 0;
+        display: inline-block;
+        box-sizing: border-box;
+        border-radius: 5vw; 
+        border: 1px solid #459379;
+        padding:0.5vw
+    }
+
+    input[type=password], select {
+        width: 100%;
+        margin: 0.5vw 0;
+        display: inline-block;
+        box-sizing: border-box;
+        border-radius: 5vw;
+        border: 1px solid #459379;
+        padding: 0.5vw
+    }
+
+    input[type=submit] {
+        width: 100%;
+        background-color: #198754;
+        color: white;
+        padding: 14px 20px;
+        border: none;
+        border-radius: 5vw;
+        cursor: pointer;
+        margin-top:2vw;
+    }
+
+        input[type=submit]:hover {
+            background-color: #198754;
+        }
+
+    form-signup {
+        border-radius: 5vw;
+        padding: 20px;
+    }
+
+    label[for=lbl]{
+        float: left;
+        font-size:1vw;
+    }
+    #background {
+        background-color: #d5f7e6;
+        margin: 0px;
+        padding: 4vw 10vw 4vw 10vw;
+    }
+
+</style>
+
+@if (Model.errorMessage.Length > 0)
+{
+    <div class="alert alert-warning alert-dismissible fade show" role="alert">
+        <strong>@Model.errorMessage</strong>
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+}
+
+<div id="background" class="container-fluid">
+   <center>
+        <div class="col-sm-5" style="border-radius: 5vw; border: 1px solid #459379;padding:3vw;background-color:white">
+
+            <h1 style="color:#198754; margin-bottom:2vw;">Sign up</h1>
+
+            <div class="form-signup">
+                <form method="post">
+
+                    <label for="lbl">First Name</label>
+                    <input type="text" id="fname" name="firstname" placeholder="First Name..">
+
+                    <label for="lbl">Last Name</label>
+                    <input type="text" id="lname" name="lastname" placeholder="Last Name..">
+
+                    <label for="lbl">Email</label>
+                    <input type="text" id="email" name="email" placeholder="Email..">
+
+                    <label for="lbl">Password</label>
+                    <input type="password" id="pass" name="pass" placeholder="Password..">
+
+                    <label for="lbl">Gender</label>
+                    <select id="gioitinh" name="gender">
+                        <option value="Male">Male</option>
+                        <option value="Female">Female</option>
+                        <option value="Other">Other...</option>
+                    </select>
+
+                    <input type="submit" value="Sign up">
+                </form>
+            </div>
+        </div>
+    </center>
+</div>

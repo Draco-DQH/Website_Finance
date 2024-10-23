@@ -1,0 +1,180 @@
+﻿@page
+@model BCCM1.Pages.Users.InforModel
+@{
+    ViewData["Title"] = "Information";
+}
+
+@section Scripts {
+    <script>
+        // Đợi cho tất cả các phần tử trong DOM được tải hoàn toàn
+        document.addEventListener('DOMContentLoaded', function () {
+            // Lấy navbar bằng cách sử dụng querySelector
+            var navbar = document.querySelector('.navbar');
+            // Ẩn thanh navbar bằng cách thêm lớp CSS 'd-none' (ẩn)
+            navbar.classList.add('d-none');
+        });
+    </script>
+}
+
+
+<style>
+    .underlist {
+        list-style-type: none;
+        margin: 1vw 0vw 0vw 2vw;
+        padding: 0;
+        width: 10%;
+        position: fixed;
+        height: 100%;
+        overflow: auto
+    }
+
+    li a {
+        display: block;
+        color: #000;
+        padding: 8px 16px;
+        text-decoration: none;
+    }
+
+        li a.active {
+            background-color: #04AA6D;
+            color: white;
+        }
+
+        li a:hover:not(.active) {
+            background-color: #555;
+            color: white;
+        }
+</style>
+
+<nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light ">
+    <div class="container-fluid" style="margin:0vw 5vw 0vw 5vw">
+        <a class="navbar-brand" asp-area="" asp-page="/Users/Homepage?id=@Model.userInfo.id" style="width:10%; height:10%">
+            <div>
+                <img src="/img/logo2.png" style="float:left; max-width:40%; max-height:40%" />
+            </div>
+        </a>
+        <form method="post">
+            <input type="hidden" name="id" value="@Model.userInfo.id" />
+        </form>
+        <div style="margin-left: auto;margin-right: 1vw;">
+            @Model.userInfo.email
+        </div>
+        <a href="/Index"><button class=" btn btn-outline-success" style="border-radius:5vw; float:right">Log out</button></a>
+    </div>
+</nav>
+
+<center>
+    <ul class="underlist">
+        <li><a style="border-radius:2vw" href="/Users/Homepage?id=@Model.userInfo.id">Home</a></li>
+        <li><a style="border-radius:2vw;margin-top:1vw" href="/Users/Transactions?id=@Model.userInfo.id">Transactions</a></li>
+        <li><a class="active" style="border-radius:2vw;margin-top:1vw" href="/Users/Infor?id=@Model.userInfo.id">Information</a></li>
+    </ul>
+</center>
+
+<div style="background-color:#d5f7e6; margin-left:14%;padding:1px 16px;height:1000px;">
+    @if (Model.errorMessage.Length > 0)
+    {
+        <div class="alert alert-warning alert-dismissible fade show" role="alert">
+            <strong>@Model.errorMessage</strong>
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+    }
+    <form method="post">
+        <div class="container" style="background-color: #ffffff; margin:40px; padding: 30px;">
+            <div style="background-color: #FFFFFF; margin: 30px; padding: 5px;">
+                <div class="row row-cols-2">
+                    <div class="col col-4">
+                        <div class="box py-4">
+                            <div class="row">
+                                <img src="https://cdn.sforum.vn/sforum/wp-content/uploads/2023/10/avatar-trang-4.jpg" class="img-thumbnail" alt="Beatles" style="width:auto;">
+                            </div>
+                            <br />
+                            <div class="row">
+                                <button type="button" class="btn btn-outline-success">
+                                    Avatar
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col col-8 ps-5">
+                        <div class="box">
+                            <div class="row">
+                                <input type="hidden" name="id" value="@Model.userInfo.id" />
+                                <span class="fName">First Name</span>
+                                <input id="fname" name="fName" type="text" class="form-control" value="@Model.userInfo.fName" placeholder="First Name..">
+                            </div>
+                            <br />
+                            <div class="row">
+                                <span class="lName">Last Name</span>
+                                <input id="lname" name ="lName" type="text" class="form-control" value="@Model.userInfo.lName" placeholder="Last Name..">
+                            </div>
+                            <br />
+                            <div class="row row-cols-3">
+                                <div class="col col-5 px-0">
+                                    <span class="Users">Birthday</span>
+                                    <input type="date" id="birthDay" name="birthDay" value="@(Model.userInfo.birthDay == " " ? "MM-dd-yyyy" : Model.userInfo.birthDay)">
+                                </div>
+                                <div class="col col-2"></div>
+                                <div class="col col-5 px-0">
+                                    <span class="Users">Gender</span>
+                                    <select id="gender" name="gender">
+                                        @{
+                                            // Kiểm tra xem giá trị từ cơ sở dữ liệu có tồn tại không
+                                            if (Model.userInfo.gender != null && Model.userInfo.gender == "Female")
+                                            {
+                                                <option value="@Model.userInfo.gender" selected>@Model.userInfo.gender</option>
+                                                <option value="Male">Male</option>
+                                                <option value="Other">Other...</option>
+                                            }
+                                            else if (Model.userInfo.gender != null && Model.userInfo.gender == "Male")
+                                            {
+                                                <option value="@Model.userInfo.gender" selected>@Model.userInfo.gender</option>
+                                                <option value="Female">Female</option>
+                                                <option value="Other">Other...</option>
+                                            } else if (Model.userInfo.gender != null && Model.userInfo.gender != "Male" && Model.userInfo.gender != "Female")
+                                            {
+                                                <option value="@Model.userInfo.gender" selected>@Model.userInfo.gender</option>
+                                                <option value="Female">Female</option>
+                                                <option value="Male">Male</option>
+                                            }
+                                        }                                       
+                                    </select>
+                                </div>
+                            </div>
+                            <br />
+                            <div class="row">
+                                <span class="Users">Email</span>
+                                <input id="email" name="email" type="text" class="form-control" value="@Model.userInfo.email" readonly>
+                            </div>
+                            <br />
+                            <div class="row">
+                                <span class="Users">Password</span>
+                                <input id="pass" name="pass" type="password" class="form-control" value="@Model.userInfo.pass">
+                            </div>
+                            <br />
+                            <div class="row">
+                                <span class="Users">Phone</span>
+                                <input id="phone" name="phone" type="text" class="form-control" value="@(Model.userInfo.phone == " " ? "" : Model.userInfo.phone)">
+                            </div>
+                            <br />
+                            <div class="row">
+                                <span class="Users">Address</span>
+                                <input id="address" name="address" type="text" class="form-control" value="@(Model.userInfo.address == " " ? "" : Model.userInfo.address)">
+                            </div>
+                            <br/>
+                            <div class="row mb-3">
+                                <div class="col-sm-4 d-grid">
+                                    <button type="submit" class="btn btn-success">Submit</button>
+                                    </div>
+                                <div class="col-sm-4 d-grid">
+                                    <a class="btn btn-outline-success" href="/Users/Infor?id=@Model.userInfo.id" role="button">Cancel</a>
+                                </div>
+                                
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>

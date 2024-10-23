@@ -1,0 +1,89 @@
+﻿@page
+@model BCCM1.Pages.Users.LoginModel
+@{
+    ViewData["Title"] = "Login";
+}
+<style>
+    input[type=text], select {
+        width: 100%;
+        margin: 0.5vw 0;
+        display: inline-block;
+        box-sizing: border-box;
+        border-radius: 5vw;
+        border: 1px solid #459379;
+        padding: 0.5vw
+    }
+
+    input[type=password], select {
+        width: 100%;
+        margin: 0.5vw 0;
+        display: inline-block;
+        box-sizing: border-box;
+        border-radius: 5vw;
+        border: 1px solid #459379;
+        padding: 0.5vw
+    }
+
+
+    button[type=submit] {
+        width: 100%;
+        background-color: #198754;
+        color: white;
+        padding: 14px 20px;
+        border: none;
+        border-radius: 5vw;
+        cursor: pointer;
+        margin-top: 2vw;
+    }
+
+        button[type=submit]:hover {
+            background-color: #198754;
+        }
+
+    form-login {
+        border-radius: 5vw;
+        padding: 20px;
+    }
+
+    label[for=lbl] {
+        float: left;
+        font-size: 20px;
+    }
+
+    #background {
+        background-color: #d5f7e6;
+        margin: 0px;
+        padding: 4vw 10vw 4vw 10vw;
+    }
+
+</style>
+@if (Model.errorMessage.Length > 0)
+{
+    <div class="alert alert-warning alert-dismissible fade show" role="alert">
+        <strong>@Model.errorMessage</strong>
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+}
+
+    <div id="background" class="container-fluid">
+        <center>
+            <div class="col-sm-5" style="border-radius: 5vw; border: 1px solid #459379;padding:3vw;margin:6vw;background-color:white">
+
+                <h1 style="color:#198754; margin-bottom:2vw;">Log in</h1>
+
+
+                <div class="form-login">
+                <form method="post">
+
+                        <label for="lbl">Email</label>
+                        <input type="text" id="email" name="email" value="@Model.userInfo.email" placeholder="Email..">
+
+                        <label for="lbl">Password</label>
+                        <input type="password" id="pass" name="pass" value="@Model.userInfo.pass" placeholder="Mật khẩu..">
+
+                        <button type="submit">Log in</button>
+                    </form>
+                </div>
+            </div>
+        </center>
+    </div>
